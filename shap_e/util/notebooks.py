@@ -84,3 +84,21 @@ def gif_widget(images):
     writer.seek(0)
     data = base64.b64encode(writer.read()).decode("ascii")
     return widgets.HTML(f'<img src="data:image/gif;base64,{data}" />')
+
+def gif_html(images):
+    writer = io.BytesIO()
+    images[0].save(
+        writer, format="GIF", save_all=True, append_images=images[1:], duration=100, loop=0
+    )
+    writer.seek(0)
+    data = base64.b64encode(writer.read()).decode("ascii")
+    return f'<img src="data:image/gif;base64,{data}" />'
+
+def gif_base(images):
+    writer = io.BytesIO()
+    images[0].save(
+        writer, format="GIF", save_all=True, append_images=images[1:], duration=100, loop=0
+    )
+    writer.seek(0)
+    data = base64.b64encode(writer.read()).decode("ascii")
+    return f'data:image/gif;base64,{data}'
